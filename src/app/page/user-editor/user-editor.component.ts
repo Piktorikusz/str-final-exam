@@ -33,6 +33,7 @@ export class UserEditorComponent implements OnInit {
   
   user: User = new User();
   userId: number = 0;
+  
 
   constructor(
     private userService: UserService,
@@ -49,17 +50,11 @@ export class UserEditorComponent implements OnInit {
   //  this.userService.update(item).subscribe(i=>{
   //  })
   //}
-  //onUpdate(form: NgForm, user: User): void {
-  //  this.clicked = true;
-  //  if (!user.id) {
-  //    this.userService.create(user);
-  //    this.router.navigate(['users']);
-  //    } else {
-   //     this.userService.update(user).subscribe(
-  //        () => this.router.navigate(['users'])
-  //      );
-    //  }
-      //console.log('onUpdate:',form.value, product)
+  //onUpdate(form: NgForm, item: User): void {
+  //  if(item.id != 0)
+  //    this.userService.update(item).subscribe(i=>{});
+  //  else
+  //    this.userService.create(item).subscribe(i=>{});
   //}
   onUpdate(user: User): void {
     user.id = Number(user.id)
@@ -73,5 +68,9 @@ export class UserEditorComponent implements OnInit {
         ev => this.router.navigate([''])
       );
     }
-  }  
-}
+  }
+
+
+} 
+
+

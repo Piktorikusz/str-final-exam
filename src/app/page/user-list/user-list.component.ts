@@ -20,6 +20,9 @@ export class UserListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.userService.getAll();
+   // this.users$.subscribe();
+    
   }
   //deleteOnClick(user:User) {
   //  this.userService.delete(user)
@@ -38,10 +41,35 @@ export class UserListComponent implements OnInit {
   // / })
   //}
 
+  
+  //onDelete(user:User){
+  //  this.userService.remove(user).subscribe(i=>{
+  //  });
+  //  this.userService.getAll().subscribe(i=>{
+  //    
+  //  })
+  //}
+  //onDelete(user: User): void {
+  //  this.userService.remove(user).subscribe(
+  //    () => alert('Are you sure you want to delete this user?')
+  //  );
+  //};
+
+  //onDelete(user:User){
+  //  this.userService.remove(user).subscribe(i=>{
+  //  });
+  //  this.userService.getAll().subscribe(i=>{
+//
+  //  })
+ // }
+  //onDelete(user: User) {
+  //  this.userService.remove(user);
+  //}
   onDelete(user: User): void {
     this.userService.remove(user).subscribe(
-      () => alert('Biztosan törli?')
+      () => alert('Biztosan törlöd?')
     );
+    this.userService.getAll();
   }
 
   onChangePhrase(event: Event): void {
