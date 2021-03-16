@@ -30,6 +30,9 @@ export class UserEditorComponent implements OnInit {
       return this.userService.get(Number(params.id));
     })
   );
+  
+  user: User = new User();
+  userId: number = 0;
 
   constructor(
     private userService: UserService,
@@ -38,23 +41,37 @@ export class UserEditorComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.userService.get(this.userId).subscribe(
+      user => this.user = user
+    );
   }
   //onUpdate(form: NgForm, item: User): void {
   //  this.userService.update(item).subscribe(i=>{
   //  })
   //}
-  onUpdate(form: NgForm, user: User): void {
-    this.clicked = true;
-    if (!user.id) {
-      this.userService.create(user);
-      this.router.navigate(['users']);
-      } else {
-        this.userService.update(user).subscribe(
-          () => this.router.navigate(['users'])
-        );
-      }
+  //onUpdate(form: NgForm, user: User): void {
+  //  this.clicked = true;
+  //  if (!user.id) {
+  //    this.userService.create(user);
+  //    this.router.navigate(['users']);
+  //    } else {
+   //     this.userService.update(user).subscribe(
+  //        () => this.router.navigate(['users'])
+  //      );
+    //  }
       //console.log('onUpdate:',form.value, product)
-  }
-
-
+  //}
+  onUpdate(user: User): void {
+    user.id = Number(user.id)
+    if(user.id === 0){
+      this.userService.create(user).subscribe(
+        ev => this.router.navigate(['']),
+        () => this.userService.getAll()
+      );
+    } else {
+      this.userService.update(user).subscribe(
+        ev => this.router.navigate([''])
+      );
+    }
+  }  
 }

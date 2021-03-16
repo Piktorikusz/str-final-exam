@@ -12,6 +12,8 @@ export class UserListComponent implements OnInit {
 
   users$: Observable<User[]> = this.userService.getAll();
   phrase:string ="";
+  //filteKey: string = 'name'
+  columnKey: string = '';
 
   constructor(
     private userService: UserService,
@@ -25,14 +27,28 @@ export class UserListComponent implements OnInit {
   //onDelete(user:User){
   //  this.userService.remove(user).subscribe(i=>{});
   //}
-  onChangePhrase(event:Event){
+  //onChangePhrase(event:Event){
+  //  this.phrase = (event.target as HTMLInputElement).value;
+  //}
+  //onDelete(user:User){
+  //  this.userService.remove(user).subscribe(i=>{
+  //  });
+  //  this.userService.getAll().subscribe(i=>{
+  //    
+  // / })
+  //}
+
+  onDelete(user: User): void {
+    this.userService.remove(user).subscribe(
+      () => alert('Biztosan törli?')
+    );
+  }
+
+  onChangePhrase(event: Event): void {
     this.phrase = (event.target as HTMLInputElement).value;
   }
-  onDelete(user:User){
-    this.userService.remove(user).subscribe(i=>{
-    });
-    this.userService.getAll().subscribe(i=>{
-      
-    })
+
+  onColumnSelect(key: string): void {
+    this.columnKey = key;
   }
 }
