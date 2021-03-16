@@ -35,19 +35,43 @@ export class UserService {
    * Delete a user from the database.
    * The method is: this.http.delete
    */
+  //delete(user: User) : Observable<User> {
+  //  return this.http.delete<User>(`${this.endpoint}/${user.id}`);
+  //}
+  //delete(user: User): void {
+  //  this.http.delete(`${this.endpoint}/${user.id}`
+  //  ).subscribe(() => this.getAll());
+  //}
+  remove(user: User): Observable<any>{
+    let url:string = `${this.endpoint}/${user.id}`
+        return this.http.delete<User>( url );
 
-
-
+  }
   /**
    * Create a user in the database.
    * The method is: this.http.post
    */
-
+   create(user: User): void {
+    this.http.post<User>(`${this.endpoint}`, user
+    ).subscribe(() => this.getAll());
+  }
 
 
   /**
    * Update a user in the database.
    * The method is: this.http.patch
    */
+   //update(user: User): Observable<User> {
+    //return this.http.patch<User>(`${this.endpoint}/${user.id}`, user
+    //).pipe(
+    //  tap(() => this.getAll())
+    //);
+  //}
+  update(item: User): Observable<any> {
+    return this.http.patch(`${this.endpoint}/${item.id}`, item);
+  }
 
+
+
+  
 }

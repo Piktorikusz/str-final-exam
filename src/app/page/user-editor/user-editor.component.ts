@@ -1,10 +1,12 @@
+import { JsonpClientBackend } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { User } from 'src/app/model/user';
 import { UserService } from 'src/app/service/user.service';
+
 
 @Component({
   selector: 'app-user-editor',
@@ -32,9 +34,27 @@ export class UserEditorComponent implements OnInit {
   constructor(
     private userService: UserService,
     private activatedRoute: ActivatedRoute,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
   }
+  //onUpdate(form: NgForm, item: User): void {
+  //  this.userService.update(item).subscribe(i=>{
+  //  })
+  //}
+  onUpdate(form: NgForm, user: User): void {
+    this.clicked = true;
+    if (!user.id) {
+      this.userService.create(user);
+      this.router.navigate(['users']);
+      } else {
+        this.userService.update(user).subscribe(
+          () => this.router.navigate(['users'])
+        );
+      }
+      //console.log('onUpdate:',form.value, product)
+  }
+
 
 }
